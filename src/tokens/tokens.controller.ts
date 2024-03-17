@@ -3,40 +3,30 @@ import {
   Get,
   Post,
   Body,
-  Patch,
-  Param,
-  Delete,
+  Headers,
+  UseInterceptors,
 } from '@nestjs/common';
 import { TokensService } from './tokens.service';
 import { CreateTokenDto } from './dto/create-token.dto';
-import { UpdateTokenDto } from './dto/update-token.dto';
+import { EmailValidationInterceptor } from 'src/common/interceptors/email-validation/email-validation.interceptor';
+import { CardNumberValidationInterceptor } from 'src/common/interceptors/card-number-validation/card-number-validation.interceptor';
+import { ExpirationDateValidationInterceptor } from 'src/common/interceptors/expiration-date-validation/expiration-date-validation.interceptor';
 
 @Controller('tokens')
 export class TokensController {
   constructor(private readonly tokensService: TokensService) {}
 
   @Post()
+  @UseInterceptors(CardNumberValidationInterceptor)
+  @UseInterceptors(ExpirationDateValidationInterceptor)
+  @UseInterceptors(EmailValidationInterceptor)
   create(@Body() createTokenDto: CreateTokenDto) {
-    return this.tokensService.create(createTokenDto);
+    return this.tokensService.createToken(createTokenDto);
   }
 
-  @Get()
-  findAll() {
-    return this.tokensService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.tokensService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTokenDto: UpdateTokenDto) {
-    return this.tokensService.update(+id, updateTokenDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.tokensService.remove(+id);
+  @Post('verify')
+  verifyToken(@Headers('authorization') authHeader: string) {
+    const token = authHeader.replace('Bearer ', '');
+    return this.tokensService.verifyToken(token);
   }
 }
