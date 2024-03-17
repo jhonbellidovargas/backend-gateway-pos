@@ -9,5 +9,15 @@ services:
     volumes:
       - redis:/data
 
+  db:
+    image: mongo:5
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGODB_DATABASE: nest-tokens
+    volumes:
+      - ./mongo:/data/db
+
 volumes:
   redis:
