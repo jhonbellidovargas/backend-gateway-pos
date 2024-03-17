@@ -73,8 +73,8 @@ $ npm run start
 # watch mode
 $ npm run start:dev
 
-# production mode
-$ npm run start:prod
+# build
+$ npm run build
 ```
 
 6. Abre el navegador y ve a la siguiente dirección
