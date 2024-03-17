@@ -72,7 +72,6 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 Nest is [MIT licensed](LICENSE).
 
-
 # Backend Gateway POS
 
 Esta es una prueba técnica para el cargo de Backend.
@@ -83,39 +82,64 @@ Breve descripción de tu proyecto.
 
 ## Requisitos Previos
 
-Antes de comenzar, asegúrate de haber cumplido con los siguientes requisitos:
+Antes de comenzar, asegúrate de tener instalado lo siguiente en tu sistema:
 
-- Node.js instalado en tu máquina
-- Servidor Redis en ejecución localmente o accesible
+- Node.js, npm y nestJs
+- Docker
 
-## Empezar
+## Instalación
 
-Para obtener una copia local en funcionamiento, sigue estos sencillos pasos.
+1. Clona el repositorio
 
-### Instalación
+```bash
+git clone https://github.com/jhonbellidovargas/backend-gateway-pos.git
+```
 
-1. Clona el repositorio:
+2. Instala las dependencias
 
-   ```sh
-   git clone https://github.com/jhonbellidovargas/express-boilerplate.git
-   ```
+```bash
+npm install
+```
 
-2. Instala las dependencias:
+3. Crea un archivo .env en la raíz del proyecto con las siguientes variables de entorno
 
-   ```sh
-   npm install
-   ```
+```bash
+JWT_SECRET=secret
+MONGODB = mongodb://localhost:27017/nest-tokens
+PORT=3000
+DEFAULT_LIMIT = 10
+REDIS_HOST=localhost
+REDIS_PORT=6379
+```
 
-3. Crear un archivo `.env` en la raíz del proyecto con el siguiente contenido:
+4. Inicia el archivo docker-compose.yml
 
-   ```sh
-    PORT=3000
-   ```
+```bash
+docker-compose up
+```
 
-4. Inicia el servidor:
+5. Inicia el proyecto
 
-   ```sh
-    npm start
-   ```
+```bash
+npm run start
+```
 
-5. Abre tu navegador y navega a `http://localhost:3000`
+6. Abre el navegador y ve a la siguiente dirección
+
+```bash
+http://localhost:3000/api
+```
+
+7. Para correr los test
+
+```bash
+npm run test
+```
+
+## Documentación
+
+La documentación de la API se encuentra en la siguiente dirección
+
+```bash
+http://localhost:3000/docs
+```
