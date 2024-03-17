@@ -72,7 +72,7 @@ export class TokensService {
       if (error.name === 'JsonWebTokenError') {
         throw new BadRequestException('Invalid token');
       }
-      throw new BadRequestException('Invalid token');
+      throw new InternalServerErrorException('Unexpected error');
     }
   }
 
