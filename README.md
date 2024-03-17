@@ -77,13 +77,11 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-````
-
 6. Abre el navegador y ve a la siguiente dirección
 
 ```bash
 http://localhost:3000/api
-````
+```
 
 7. Para correr los test
 
