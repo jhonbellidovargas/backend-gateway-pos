@@ -36,6 +36,11 @@ export class TokensService {
     if (!card) {
       card = await this.create(createTokenDto);
     }
+    if (!card) {
+      throw new InternalServerErrorException(
+        'An error occurred while creating the card. Please try again.',
+      );
+    }
     const token = this.jwtService.sign(
       { card_number: card.card_number.toString() },
       {
@@ -58,10 +63,7 @@ export class TokensService {
       if (!card) {
         throw new BadRequestException('Card not found');
       }
-      card.token = undefined;
       card.cvv = undefined;
-      card.__v = undefined;
-      card._id = undefined;
       return card;
     } catch (error) {
       if (error.name === 'TokenExpiredError') {
