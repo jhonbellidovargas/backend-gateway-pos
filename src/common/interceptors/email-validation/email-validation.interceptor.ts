@@ -12,6 +12,9 @@ export class EmailValidationInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const request = context.switchToHttp().getRequest();
     const email = request.body.email;
+    if (!email) {
+      throw new BadRequestException('The email is required');
+    }
     const allowedDomains = ['gmail.com', 'hotmail.com', 'yahoo.com'];
     const domain = email.split('@')[1];
 
