@@ -1,10 +1,23 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import * as dotenv from 'dotenv';
+// import * as dotenv from 'dotenv';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
-  dotenv.config();
+  // dotenv.config();
   const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+      transformOptions: {
+        enableImplicitConversion: true,
+      },
+    }),
+  );
+  await app.listen(process.env.PORT || 3000);
+  console.log(`Application is running on: ${await app.getUrl()}`);
 }
 bootstrap();
+
