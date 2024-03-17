@@ -11,6 +11,7 @@ import { EmailValidationInterceptor } from './common/interceptors/email-validati
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { CardNumberValidationInterceptor } from './common/interceptors/card-number-validation/card-number-validation.interceptor';
 import { ExpirationDateValidationInterceptor } from './common/interceptors/expiration-date-validation/expiration-date-validation.interceptor';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 @Module({
   imports: [
@@ -34,20 +35,6 @@ import { ExpirationDateValidationInterceptor } from './common/interceptors/expir
     TokensModule,
   ],
   controllers: [AppController],
-  providers: [
-    AppService,
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: EmailValidationInterceptor,
-    },
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: CardNumberValidationInterceptor,
-    },
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: ExpirationDateValidationInterceptor,
-    },
-  ],
+  providers: [AppService],
 })
 export class AppModule {}
